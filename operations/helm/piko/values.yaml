@@ -167,8 +167,13 @@ auth:
   hmac:
     # -- Enable HMAC authentication
     enabled: false
+    # -- HMAC secret value (base64 encoded or plain text)
+    # If provided, Helm will create a secret automatically
+    # If not provided, use existingSecret to reference an existing secret
+    secret: ""
     # -- Name of existing secret containing HMAC key
     # Secret must have key 'hmac-secret'
+    # Only used if secret is not provided
     existingSecret: ""
 
   # -- RSA public key authentication (recommended)
