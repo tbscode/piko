@@ -13,12 +13,12 @@ import (
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 
-	"github.com/andydunstall/piko/client"
-	"github.com/andydunstall/piko/forward"
-	"github.com/andydunstall/piko/forward/config"
-	"github.com/andydunstall/piko/pkg/build"
-	pikoconfig "github.com/andydunstall/piko/pkg/config"
-	"github.com/andydunstall/piko/pkg/log"
+	"github.com/tbscode/piko/client"
+	"github.com/tbscode/piko/forward"
+	"github.com/tbscode/piko/forward/config"
+	"github.com/tbscode/piko/pkg/build"
+	pikoconfig "github.com/tbscode/piko/pkg/config"
+	"github.com/tbscode/piko/pkg/log"
 )
 
 func NewCommand() *cobra.Command {

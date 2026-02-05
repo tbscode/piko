@@ -16,12 +16,12 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
-	"github.com/andydunstall/piko/pkg/auth"
-	"github.com/andydunstall/piko/pkg/log"
-	"github.com/andydunstall/piko/pkg/middleware"
-	pikowebsocket "github.com/andydunstall/piko/pkg/websocket"
-	"github.com/andydunstall/piko/server/cluster"
-	"github.com/andydunstall/piko/server/config"
+	"github.com/tbscode/piko/pkg/auth"
+	"github.com/tbscode/piko/pkg/log"
+	"github.com/tbscode/piko/pkg/middleware"
+	pikowebsocket "github.com/tbscode/piko/pkg/websocket"
+	"github.com/tbscode/piko/server/cluster"
+	"github.com/tbscode/piko/server/config"
 )
 
 // Server accepts connections from upstream services.

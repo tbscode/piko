@@ -15,11 +15,11 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
-	"github.com/andydunstall/piko/pkg/auth"
-	"github.com/andydunstall/piko/pkg/log"
-	"github.com/andydunstall/piko/pkg/middleware"
-	"github.com/andydunstall/piko/server/cluster"
-	"github.com/andydunstall/piko/server/status"
+	"github.com/tbscode/piko/pkg/auth"
+	"github.com/tbscode/piko/pkg/log"
+	"github.com/tbscode/piko/pkg/middleware"
+	"github.com/tbscode/piko/server/cluster"
+	"github.com/tbscode/piko/server/status"
 )
 
 // Server is the admin HTTP server, which exposes endpoints for metrics, health

@@ -10,8 +10,8 @@ import (
 
 	"go.uber.org/zap"
 
-	piko "github.com/andydunstall/piko/client"
-	"github.com/andydunstall/piko/pkg/log"
+	piko "github.com/tbscode/piko/client"
+	"github.com/tbscode/piko/pkg/log"
 )
 
 type Forwarder struct {

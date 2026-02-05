@@ -12,9 +12,9 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/andydunstall/piko/client"
-	"github.com/andydunstall/piko/pikotest/cluster"
-	"github.com/andydunstall/piko/pkg/auth"
+	"github.com/tbscode/piko/client"
+	"github.com/tbscode/piko/pikotest/cluster"
+	"github.com/tbscode/piko/pkg/auth"
 )
 
 // Tests upstream authentication.

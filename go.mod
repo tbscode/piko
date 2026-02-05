@@ -1,4 +1,4 @@
-module github.com/andydunstall/piko
+module github.com/tbscode/piko
 
 go 1.25.5
 

@@ -10,12 +10,12 @@ import (
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 
-	"github.com/andydunstall/piko/cli/server/status"
-	pikoconfig "github.com/andydunstall/piko/pkg/config"
-	"github.com/andydunstall/piko/pkg/log"
-	"github.com/andydunstall/piko/server"
-	"github.com/andydunstall/piko/server/cluster"
-	"github.com/andydunstall/piko/server/config"
+	"github.com/tbscode/piko/cli/server/status"
+	pikoconfig "github.com/tbscode/piko/pkg/config"
+	"github.com/tbscode/piko/pkg/log"
+	"github.com/tbscode/piko/server"
+	"github.com/tbscode/piko/server/cluster"
+	"github.com/tbscode/piko/server/config"
 )
 
 func NewCommand() *cobra.Command {

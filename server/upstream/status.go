@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/andydunstall/piko/server/status"
+	"github.com/tbscode/piko/server/status"
 )
 
 type Status struct {

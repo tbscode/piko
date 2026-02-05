@@ -15,15 +15,15 @@ import (
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
 
-	"github.com/andydunstall/piko/pkg/auth"
-	"github.com/andydunstall/piko/pkg/build"
-	"github.com/andydunstall/piko/pkg/log"
-	"github.com/andydunstall/piko/server/admin"
-	"github.com/andydunstall/piko/server/cluster"
-	"github.com/andydunstall/piko/server/config"
-	"github.com/andydunstall/piko/server/gossip"
-	"github.com/andydunstall/piko/server/proxy"
-	"github.com/andydunstall/piko/server/upstream"
+	"github.com/tbscode/piko/pkg/auth"
+	"github.com/tbscode/piko/pkg/build"
+	"github.com/tbscode/piko/pkg/log"
+	"github.com/tbscode/piko/server/admin"
+	"github.com/tbscode/piko/server/cluster"
+	"github.com/tbscode/piko/server/config"
+	"github.com/tbscode/piko/server/gossip"
+	"github.com/tbscode/piko/server/proxy"
+	"github.com/tbscode/piko/server/upstream"
 )
 
 // Server is a Piko server node.

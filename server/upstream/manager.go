@@ -6,7 +6,7 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/andydunstall/piko/server/cluster"
+	"github.com/tbscode/piko/server/cluster"
 )
 
 // Manager manages the upstream routes for each endpoint.

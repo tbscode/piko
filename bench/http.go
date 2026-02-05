@@ -16,9 +16,9 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/andydunstall/piko/bench/config"
-	piko "github.com/andydunstall/piko/client"
-	"github.com/andydunstall/piko/pkg/log"
+	"github.com/tbscode/piko/bench/config"
+	piko "github.com/tbscode/piko/client"
+	"github.com/tbscode/piko/pkg/log"
 )
 
 type HTTPBenchmark struct {
