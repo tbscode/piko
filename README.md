@@ -56,7 +56,8 @@ Now you can access your development proxy if you provide the correc secruity hea
 
 ```bash
 curl -H "Authorization: Bearer $PROXY_TOKEN" \
-     https://my-service.piko.yourdomain.com/
+     https://my-service.<user>.example.com/
 ```
 
-> NOTE: The requirement of the `PROXY_TOKEN` can be removed by setting `auth
+> NOTE: The requirement of the `PROXY_TOKEN` can be removed by setting `auth.proxy.enabled` to `false`.
+> **BUT: this potentially opens your development proxies up to attacks, devlopment servers are rarely secure!**
