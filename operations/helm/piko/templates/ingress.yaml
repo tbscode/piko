@@ -21,14 +21,23 @@ spec:
   {{- if .Values.ingress.proxy.tls.enabled }}
   tls:
     - hosts:
-        - {{ .Values.ingress.proxy.host | quote }}
+        {{- $baseDomain := .Values.ingress.baseDomain | default "piko.example.com" }}
+        {{- $proxyHost := .Values.ingress.proxy.host | default $baseDomain }}
+        - {{ $proxyHost | quote }}
+        {{- range $service := .Values.ingress.services | default list }}
+          {{- range $user := $.Values.ingress.users | default list }}
+        - {{ printf "%s.%s.%s" $service $user $baseDomain | quote }}
+          {{- end }}
+        {{- end }}
         {{- range .Values.ingress.proxy.additionalHosts }}
         - {{ . | quote }}
         {{- end }}
       secretName: {{ .Values.ingress.proxy.tls.secretName | default (printf "%s-tls" (include "piko.fullname" .)) }}
   {{- end }}
   rules:
-    - host: {{ .Values.ingress.proxy.host | quote }}
+    {{- $baseDomain := .Values.ingress.baseDomain | default "piko.example.com" }}
+    {{- $proxyHost := .Values.ingress.proxy.host | default $baseDomain }}
+    - host: {{ $proxyHost | quote }}
       http:
         paths:
           - path: /
@@ -38,6 +47,20 @@ spec:
                 name: {{ include "piko.fullname" . }}-lb
                 port:
                   name: proxy
+    {{- range $service := .Values.ingress.services | default list }}
+      {{- range $user := $.Values.ingress.users | default list }}
+    - host: {{ printf "%s.%s.%s" $service $user $baseDomain | quote }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "piko.fullname" $ }}-lb
+                port:
+                  name: proxy
+      {{- end }}
+    {{- end }}
     {{- range .Values.ingress.proxy.additionalHosts }}
     - host: {{ . | quote }}
       http:
@@ -76,11 +99,21 @@ spec:
   {{- if .Values.ingress.upstream.tls.enabled }}
   tls:
     - hosts:
-        - {{ .Values.ingress.upstream.host | quote }}
+        {{- $baseDomain := .Values.ingress.baseDomain | default "piko.example.com" }}
+        {{- $upstreamHost := .Values.ingress.upstream.host | default (printf "upstream.%s" $baseDomain) }}
+        - {{ $upstreamHost | quote }}
+        {{- range $service := .Values.ingress.services | default list }}
+        - {{ printf "%s.upstream.%s" $service $baseDomain | quote }}
+        {{- end }}
+        {{- range .Values.ingress.upstream.additionalHosts }}
+        - {{ . | quote }}
+        {{- end }}
       secretName: {{ .Values.ingress.upstream.tls.secretName | default (printf "%s-tls" (include "piko.fullname" .)) }}
   {{- end }}
   rules:
-    - host: {{ .Values.ingress.upstream.host | quote }}
+    {{- $baseDomain := .Values.ingress.baseDomain | default "piko.example.com" }}
+    {{- $upstreamHost := .Values.ingress.upstream.host | default (printf "upstream.%s" $baseDomain) }}
+    - host: {{ $upstreamHost | quote }}
       http:
         paths:
           - path: /
@@ -90,6 +123,30 @@ spec:
                 name: {{ include "piko.fullname" . }}-lb
                 port:
                   name: upstream
+    {{- range $service := .Values.ingress.services | default list }}
+    - host: {{ printf "%s.upstream.%s" $service $baseDomain | quote }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "piko.fullname" $ }}-lb
+                port:
+                  name: upstream
+    {{- end }}
+    {{- range .Values.ingress.upstream.additionalHosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ include "piko.fullname" $ }}-lb
+                port:
+                  name: upstream
+    {{- end }}
 {{- end }}
 {{- if .Values.ingress.admin.enabled }}
 ---
@@ -116,11 +173,15 @@ spec:
   {{- if .Values.ingress.admin.tls.enabled }}
   tls:
     - hosts:
-        - {{ .Values.ingress.admin.host | quote }}
+        {{- $baseDomain := .Values.ingress.baseDomain | default "piko.example.com" }}
+        {{- $adminHost := .Values.ingress.admin.host | default (printf "admin.%s" $baseDomain) }}
+        - {{ $adminHost | quote }}
       secretName: {{ .Values.ingress.admin.tls.secretName | default (printf "%s-tls" (include "piko.fullname" .)) }}
   {{- end }}
   rules:
-    - host: {{ .Values.ingress.admin.host | quote }}
+    {{- $baseDomain := .Values.ingress.baseDomain | default "piko.example.com" }}
+    {{- $adminHost := .Values.ingress.admin.host | default (printf "admin.%s" $baseDomain) }}
+    - host: {{ $adminHost | quote }}
       http:
         paths:
           - path: /

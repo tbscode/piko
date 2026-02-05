@@ -167,8 +167,13 @@ auth:
   hmac:
     # -- Enable HMAC authentication
     enabled: false
+    # -- HMAC secret value (base64 encoded or plain text)
+    # If provided, Helm will create a secret automatically
+    # If not provided, use existingSecret to reference an existing secret
+    secret: ""
     # -- Name of existing secret containing HMAC key
     # Secret must have key 'hmac-secret'
+    # Only used if secret is not provided
     existingSecret: ""
 
   # -- RSA public key authentication (recommended)
@@ -217,13 +222,27 @@ ingress:
     nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
     nginx.ingress.kubernetes.io/upstream-hash-by: "$request_uri"
 
+  # -- Base domain for generated hosts (e.g., "piko.example.com")
+  # Used to generate hosts like: {service}.{user}.{baseDomain} and {service}.upstream.{baseDomain}
+  baseDomain: ""
+
+  # -- List of services to generate hosts for
+  # If specified, generates proxy hosts: {service}.{user}.{baseDomain} for each service/user combination
+  # and upstream hosts: {service}.upstream.{baseDomain} for each service
+  services: []
+
+  # -- List of users to generate hosts for
+  # If specified, generates proxy hosts: {service}.{user}.{baseDomain} for each service/user combination
+  users: []
+
   # -- Proxy ingress configuration (for clients accessing services)
   proxy:
     # -- Enable proxy ingress
     enabled: true
     # -- Hostname for proxy endpoint (supports wildcards for endpoint routing)
+    # If not set, defaults to baseDomain
     # Example: "*.piko.example.com" routes my-endpoint.piko.example.com to endpoint "my-endpoint"
-    host: "piko.example.com"
+    host: ""
     # -- Additional hosts
     additionalHosts: []
     # -- TLS configuration
@@ -237,7 +256,10 @@ ingress:
     # -- Enable upstream ingress
     enabled: true
     # -- Hostname for upstream endpoint
-    host: "upstream.piko.example.com"
+    # If not set, defaults to "upstream.{baseDomain}"
+    host: ""
+    # -- Additional hosts for upstream endpoint
+    additionalHosts: []
     # -- TLS configuration
     tls:
       enabled: true
@@ -248,7 +270,8 @@ ingress:
     # -- Enable admin ingress
     enabled: false
     # -- Hostname for admin endpoint
-    host: "admin.piko.example.com"
+    # If not set, defaults to "admin.{baseDomain}"
+    host: ""
     # -- TLS configuration
     tls:
       enabled: true

@@ -93,12 +93,20 @@ spec:
                   name: {{ .Values.auth.ecdsa.existingSecret }}
                   key: ecdsa-public-key
             {{- end }}
-            {{- if and .Values.auth.enabled .Values.auth.hmac.enabled .Values.auth.hmac.existingSecret }}
+            {{- if and .Values.auth.enabled .Values.auth.hmac.enabled }}
+            {{- if .Values.auth.hmac.existingSecret }}
             - name: HMAC_SECRET_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.auth.hmac.existingSecret }}
                   key: hmac-secret
+            {{- else if .Values.auth.hmac.secret }}
+            - name: HMAC_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "piko.fullname" . }}-hmac-secret
+                  key: hmac-secret
+            {{- end }}
             {{- end }}
             {{- with .Values.extraEnv }}
             {{- toYaml . | nindent 12 }}
