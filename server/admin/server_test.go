@@ -15,11 +15,11 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/andydunstall/piko/pkg/auth"
-	"github.com/andydunstall/piko/pkg/log"
-	"github.com/andydunstall/piko/pkg/testutil"
-	"github.com/andydunstall/piko/server/cluster"
-	"github.com/andydunstall/piko/server/status"
+	"github.com/tbscode/piko/pkg/auth"
+	"github.com/tbscode/piko/pkg/log"
+	"github.com/tbscode/piko/pkg/testutil"
+	"github.com/tbscode/piko/server/cluster"
+	"github.com/tbscode/piko/server/status"
 )
 
 type fakeStatus struct {

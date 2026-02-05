@@ -9,11 +9,11 @@ import (
 
 	"go.uber.org/zap"
 
-	"github.com/andydunstall/piko/pkg/log"
-	"github.com/andydunstall/piko/pkg/testutil"
-	"github.com/andydunstall/piko/server"
-	"github.com/andydunstall/piko/server/cluster"
-	"github.com/andydunstall/piko/server/config"
+	"github.com/tbscode/piko/pkg/log"
+	"github.com/tbscode/piko/pkg/testutil"
+	"github.com/tbscode/piko/server"
+	"github.com/tbscode/piko/server/cluster"
+	"github.com/tbscode/piko/server/config"
 )
 
 type Node struct {

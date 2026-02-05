@@ -9,7 +9,7 @@ import (
 	"net/http/httputil"
 	"sync"
 
-	"github.com/andydunstall/piko/pikotest/cluster"
+	"github.com/tbscode/piko/pikotest/cluster"
 )
 
 type reverseProxy struct {

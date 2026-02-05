@@ -10,9 +10,9 @@ import (
 	"github.com/gorilla/websocket"
 	"go.uber.org/zap"
 
-	"github.com/andydunstall/piko/pkg/log"
-	pikowebsocket "github.com/andydunstall/piko/pkg/websocket"
-	"github.com/andydunstall/piko/server/upstream"
+	"github.com/tbscode/piko/pkg/log"
+	pikowebsocket "github.com/tbscode/piko/pkg/websocket"
+	"github.com/tbscode/piko/server/upstream"
 )
 
 // TCPProxy proxies TCP traffic to upstream listeners.

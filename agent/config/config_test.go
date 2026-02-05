@@ -8,8 +8,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	pikoconfig "github.com/andydunstall/piko/pkg/config"
-	"github.com/andydunstall/piko/pkg/log"
+	pikoconfig "github.com/tbscode/piko/pkg/config"
+	"github.com/tbscode/piko/pkg/log"
 )
 
 // Tests the default configuration is valid.

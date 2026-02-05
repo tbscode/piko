@@ -7,8 +7,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/andydunstall/piko/server/status/client"
-	"github.com/andydunstall/piko/server/status/config"
+	"github.com/tbscode/piko/server/status/client"
+	"github.com/tbscode/piko/server/status/config"
 )
 
 func NewCommand() *cobra.Command {
