@@ -4,6 +4,8 @@
 
 Simply setup a development proxy for your team - [based on the awesome oss piko](https://github.com/andydunstall/piko) - with just a helm chart!
 
+Specify a single DNS record `*.piko.example.com -> your k8s public IP`
+
 ```bash
 cd operations/helm
 cp values-example.yaml values.yaml
@@ -13,11 +15,12 @@ Then generate your admin secret: `openssl rand -base64 32` and set `auth.hmac.se
 Then modify the other helm values to your needs:
 
 - `tls.certManager.issuerName`: Add your k8s certmanager name here
-- `ingress.proxy.host`: Your main domain (e.g., `piko.example.com`)
-- `ingress.proxy.additionalHosts`: Add specific subdomains you need certificates for
+- `ingress.baseDomain`: Your main domain (e.g., `piko.example.com`)
+- `ingress.users`: Your users e.g.: `[user1, user2]`
+- `ingress.services`: Your services per-user e.g.: `[service1, service2, service2]`
 
 ```bash
-helm updade --install piko ./piko -f values.yaml -n piko
+helm upgrade --install piko ./piko -f values.yaml -n piko
 ```
 
 ### Adding Users
@@ -47,8 +50,8 @@ PROXY_TOKEN=...
 Download the Piko binary, then:
 
 ```bash
-piko agent http api 3000 \
-  --connect.url https://upstream.<user>.example.com \
+piko agent http user1 3000 \
+  --connect.url https://<service>.<user>.piko.example.com \
   --connect.token "$UPSTREAM_TOKEN"
 ```
 
@@ -56,7 +59,7 @@ Now you can access your development proxy if you provide the correc secruity hea
 
 ```bash
 curl -H "Authorization: Bearer $PROXY_TOKEN" \
-     https://my-service.<user>.example.com/
+     https://<service>.<user>.piko.example.com/
 ```
 
 > NOTE: The requirement of the `PROXY_TOKEN` can be removed by setting `auth.proxy.enabled` to `false`.
