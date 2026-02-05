@@ -10,7 +10,6 @@
 #
 # =============================================================================
 
-# Number of Piko replicas (3 recommended for HA)
 replicaCount: 3
 
 # =============================================================================
@@ -20,80 +19,64 @@ tls:
   enabled: true
   certManager:
     enabled: true
-    issuerName: "letsencrypt-prod"  # <-- Your ClusterIssuer name
+    issuerName: "letsencrypt-prod"
     issuerKind: "ClusterIssuer"
-    duration: 2160h    # 90 days
-    renewBefore: 360h  # 15 days before expiry
+    duration: 2160h
+    renewBefore: 360h
 
 # =============================================================================
 # JWT Authentication
 # =============================================================================
 auth:
   enabled: true
-  
-  # Optional: Validate JWT issuer claim
-  # issuer: "https://your-company.com"
-  
-  # RSA public key for verifying JWTs
   rsa:
     enabled: true
-    # Secret must exist with key 'rsa-public-key' containing PEM public key
-    # Create with: kubectl create secret generic piko-jwt-rsa-public-key \
-    #                --from-file=rsa-public-key=jwt-public.pem -n piko
     existingSecret: "piko-jwt-rsa-public-key"
-  
-  # Proxy auth (for clients accessing services via Piko)
   proxy:
     enabled: true
     audience: "piko-proxy"
-  
-  # Upstream auth (for services connecting to Piko)
   upstream:
     enabled: true
     audience: "piko-upstream"
-  
-  # Admin API auth
   admin:
     enabled: true
     audience: "piko-admin"
 
 # =============================================================================
-# Ingress - UPDATE THESE DOMAINS
+# Ingress Configuration
 # =============================================================================
 ingress:
   enabled: true
-  className: "nginx"  # Change if using different ingress controller
-  
+  className: "nginx"
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
-  
-  # Proxy endpoint (for clients accessing services)
+  baseDomain: "piko.example.com"
+  services:
+    - service1
+    - service2
+  users:
+    - user1
+    - user2
   proxy:
     enabled: true
-    host: "piko.example.com"  # <-- CHANGE THIS to your domain
-    # For wildcard routing (e.g., my-service.piko.example.com):
-    # additionalHosts:
-    #   - "*.piko.example.com"
+    host: ""
+    additionalHosts: []
     tls:
       enabled: true
-  
-  # Upstream endpoint (for services connecting to Piko)
   upstream:
     enabled: true
-    host: "upstream.piko.example.com"  # <-- CHANGE THIS to your domain
+    host: ""
+    additionalHosts: []
     tls:
       enabled: true
-  
-  # Admin endpoint (optional, disabled by default)
   admin:
     enabled: false
-    host: "admin.piko.example.com"  # <-- CHANGE THIS to your domain
+    host: ""
     tls:
       enabled: true
     annotations:
-      # Restrict admin access to internal IPs
       nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8"
 
 # =============================================================================

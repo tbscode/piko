@@ -21,7 +21,7 @@ spec:
   dnsNames:
     {{- $dnsNames := list }}
     {{- if and .Values.ingress.enabled .Values.ingress.proxy.enabled }}
-    {{- $baseDomain := .Values.ingress.baseDomain | default "piko.t1m.me" }}
+    {{- $baseDomain := .Values.ingress.baseDomain | default "piko.example.com" }}
     {{- $proxyHost := .Values.ingress.proxy.host | default $baseDomain }}
     {{- $dnsNames = append $dnsNames $proxyHost }}
     {{- /* Skip wildcards - they require DNS-01 challenge */}}
@@ -31,7 +31,7 @@ spec:
     {{- end }}
     {{- end }}
     {{- /* Add generated proxy hosts from services and users */}}
-    {{- $baseDomain := .Values.ingress.baseDomain | default "piko.t1m.me" }}
+    {{- $baseDomain := .Values.ingress.baseDomain | default "piko.example.com" }}
     {{- range $service := .Values.ingress.services | default list }}
       {{- range $user := $.Values.ingress.users | default list }}
     {{- $dnsNames = append $dnsNames (printf "%s.%s.%s" $service $user $baseDomain) }}
@@ -47,12 +47,12 @@ spec:
     {{- end }}
     {{- if and .Values.ingress.enabled .Values.ingress.upstream.enabled }}
     {{- if not $hasWildcard }}
-    {{- $baseDomain := .Values.ingress.baseDomain | default "piko.t1m.me" }}
+    {{- $baseDomain := .Values.ingress.baseDomain | default "piko.example.com" }}
     {{- $upstreamHost := .Values.ingress.upstream.host | default (printf "upstream.%s" $baseDomain) }}
     {{- $dnsNames = append $dnsNames $upstreamHost }}
     {{- end }}
     {{- /* Add generated upstream hosts from services */}}
-    {{- $baseDomain := .Values.ingress.baseDomain | default "piko.t1m.me" }}
+    {{- $baseDomain := .Values.ingress.baseDomain | default "piko.example.com" }}
     {{- range $service := .Values.ingress.services | default list }}
     {{- $dnsNames = append $dnsNames (printf "%s.upstream.%s" $service $baseDomain) }}
     {{- end }}
@@ -65,7 +65,7 @@ spec:
     {{- end }}
     {{- if and .Values.ingress.enabled .Values.ingress.admin.enabled }}
     {{- if not $hasWildcard }}
-    {{- $baseDomain := .Values.ingress.baseDomain | default "piko.t1m.me" }}
+    {{- $baseDomain := .Values.ingress.baseDomain | default "piko.example.com" }}
     {{- $adminHost := .Values.ingress.admin.host | default (printf "admin.%s" $baseDomain) }}
     {{- $dnsNames = append $dnsNames $adminHost }}
     {{- end }}
